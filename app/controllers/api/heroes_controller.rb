@@ -1,5 +1,5 @@
-class HeroesController < ApplicationController
-  before_action :set_hero, only: %i[ show update destroy ]
+class Api::HeroesController < ApplicationController
+  before_action :set_hero, only: %i[show update destroy]
 
   # GET /heroes
   def index
@@ -13,7 +13,7 @@ class HeroesController < ApplicationController
     render json: @hero
   end
 
-  # POST /heroes
+  # POST /heroes ↓↓↓
   def create
     @hero = Hero.new(hero_params)
 
@@ -23,6 +23,7 @@ class HeroesController < ApplicationController
       render json: @hero.errors, status: :unprocessable_entity
     end
   end
+  # ↑↑↑
 
   # PATCH/PUT /heroes/1
   def update
@@ -39,13 +40,14 @@ class HeroesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_hero
-      @hero = Hero.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def hero_params
-      params.require(:hero).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_hero
+    @hero = Hero.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def hero_params
+    params.require(:hero).permit(:name)
+  end
 end
